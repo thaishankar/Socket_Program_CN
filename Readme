@@ -1,0 +1,89 @@
+
+*********************************************************************************
+* Name : Thai Shankar Shanmugha Sundaram					*	
+* Student ID: 7901-1076-76							*
+* Email : shanmugh@usc.edu							*
+* Session : 3									*
+*********************************************************************************
+
+
+*********************************************************************************
+What I have done in this Project - 
+
+		Please feel free to use the script named run.sh to compile all the .c files being used in this Project.
+This Project simulates a Resource Discovery / File Sharing network using TCP/UDP Sockets. To achive this I have created a Directory Server File, 3 File Server files and 2 Client Files. 
+
+*********************************************************************************
+
+
+*********************************************************************************
+directory_server.c
+		The directory_server.c has a header file directory_server.h associated with it.
+There are 2 separate functions, one each for a phase the directory server is involved in. The function shortest_path calculates the file server which is closest to the Client.
+The directory_server.c receives the Port Numbers of the 3 File Servers and stores them in directory.txt. When Clients send a request to Directory Server to identify the closest file server which hosts the required file. The Directory Server checks the resource.txt and topology.txt to locate the closest File Server.
+
+file_server1.c, file_server2.c and file_server3.c
+		These are the C files for the 3 File Servers. All 3 of them have 2 functions - one for each phase they participate in. The header file file_server.h is the common header file for the 3 File Servers.
+The File Servers register themselves with the directory server by sending the TCP port number to which the clients need to connect to. Client requests File Server for the file. The request is sent as a String containing the file name and the File Server sends the requested file as a String.
+		
+client1.c and client2.c
+		These are the C files for the 2 clients. These files have 2 function for 3 phases the clients are involved in. They also share a common .h file, client.h		
+ The Clients first send a request to Directory Server to identify their nearest file Servers. When the Directory Server send the File Servers port number, the Client connects to the File Server and sends a request for the file in the form of a string.
+ 
+*********************************************************************************
+
+
+
+
+********************************************************************************* 
+ What the TA should do to run the project 
+
+ Please follow the Following Sequence of Orders
+ 1)Run the shell script run.sh to compile all the files and create their executables.(Assuming run.sh has chmod 755 premissions)
+ 	If it fails to compile, run the following commands
+ 		gcc -g -o directory_server directory_server.c  
+		gcc -g -o file_server1 file_server1.c 
+		gcc -g -o file_server2 file_server2.c   
+		gcc -g -o file_server3 file_server3.c 
+		gcc -g -o client1 client1.c 
+		gcc -g -o client2 client2.c 
+ 2)Run the Directory Server executable directory_server(./directory_server)
+ 3)Run the File Server executables file_server1 , file_server2 and file_server3(in any order)(./file_server1,./file_server2,./file_server3)
+ 4)Run the Client executables client1 , client2(in any order)(./client1,./client2)
+ 
+*********************************************************************************
+ 
+
+
+
+*********************************************************************************
+Format of Messages Exchanged
+
+1)File Server send their port number to Directory Server in the format File_Server# Port#
+2)Clients request for the docs to Directory Server in the format Client# doc#
+3)The Directory Server sends the File Server port number to Client in the format File Server # Port #
+4)The Clients request for the docs to File Server in the format Client# doc#
+5)The File Server sends the requested File to the client in the format doc#
+
+*********************************************************************************
+
+
+
+*********************************************************************************
+Points of Failures:
+
+1)Any deviation in the format of the messages exchanged from the pre-defined format will make the code malfuncation as the programs assumes the exchanged messages stick to the predefined format.
+2)If any of the File Servers register their port numbers with Directory Servers more than once, the code might fail.
+3)If the order of the File Servers in resource.txt is changed, the code will malfunction.
+
+*********************************************************************************
+
+
+
+
+*********************************************************************************
+No Reused Code:
+
+All parts have been code have been written by me(excpet for the Socket creation parts from Beej) and have not been reused from anywhere
+
+*********************************************************************************
